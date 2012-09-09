@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!--This is an automatically generated document, please excuse the odd
+whitespaces-->
+<!--This document (once compiled) passes the W3C validator with no errors-->
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+        <!--
+            Name should always be first: When someone sees a tab, the first
+            thing they see in the tab name should be the most important thing,
+            as the page title may be truncated.
+        -->
+        <title>
+            {{ person_info["name"] }} |
+            {{ document_formatting["title"] }}
+            {% if "subtitle" in document_formatting %}
+                | {{ document_formatting["subtitle"] }}
+            {% endif %}
+        </title>
+        <link href="resume.css" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="favicon.ico">
+    </head>
+    <body>
+        <div id="header">
+            <!--
+                This is the header block containing the document title and the
+                person's name
+            -->
+            <!--
+                Here's a compatibility notice for IE. IE 10 should actually be
+                able to render this stuff properly once its column rendering is
+                fixed (It's only in early development now)
+            -->
+            <!--[if lt IE 10]
+                <div id="browser_warning" class="content">
+                    Uh oh! It looks like you're running an unsupported browser.
+                    This page may work better on a recent version of Firefox or
+                    Chrome.
+                </div>
+            [endif]-->
+            <div id="title_block">
+                <!--
+                    The part showing the name of the document, usually something
+                    like "Resume"
+                -->
+                <h1>{{ document_formatting["title"] }}</h1>
+                <!-- The subtitle is optional -->
+                {% if "subtitle" in document_formatting %}
+                    <h2>{{ document_formatting["subtitle"] }}</h2>
+                {% endif %}
+            </div>
+            <div id="personal_info">
+                <!-- The person's name and contact information (if any) -->
+                <h1>{{ person_info["name"] }}</h1>
+                <!--
+                    The person's 'titles'. This can be stuff like "Software
+                    Developer" or "Web Designer"
+                -->
+                <h2>{{ '<span class="separator"> | </span>'.join(person_info["titles"]) }}</h2>
+                {% set email = person_info["contact"]["email"] %}
+                {% set social_media = person_info["contact"]["social_media"] %}
+                {% set web_contact = [{"service":email, "url":"mailto:" + email}]
+                                     + social_media %}
+                <div class="contact email">
+                    {% for c in web_contact %}
+                        <a href="{{ c["url"] }}">{{ c["service"] }}</a>
+                        {% if c != web_contact[-1] %}
+                            <span class="separator"> | </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div id="body">
+            {% if "public_about" in person_info or "about" in person_info %}
+                <div id="about_me" class="info_block">
+                    <h1>About Me</h1>
+                    <div class="info_body">
+                        {{ person_info["about"] }}
+                    </div>
+                </div>
+            {% endif %}
+            {% if experiences is defined %}
+                <div id="experiences" class="info_block">
+                    <h1>Projects</h1>
+                    <div class="info_body">
+                        {% for experience in experiences %}
+                            <div class="experience info_item">
+                                <h2>
+                                    {{ experience["title"] }}
+                                    {% if "start_time" in experience
+                                                  or "end_time" in experience %}
+                                        <span class="dates">
+                                            ({% if "start_time" in experience %}{{ experience["start_time"] }}{% endif %}&ndash;{% if "end_time" in experience %}{{ experience["end_time"] }}{% endif %})
+                                        </span>
+                                    {% endif %}
+                                    {% if "timeframe" in experience %}
+                                        <span class="dates">
+                                            ({{ experience["timeframe"] }})
+                                        </span>
+                                    {% endif %}
+                                </h2>
+                                {{ experience["description"] }}
+                                {% if experience["links"] %}
+                                    <h3>Related Content:</h3>
+                                {% endif %}
+                                <ul class="links">
+                                    {% for link in experience["links"] %}
+                                        <li>
+                                            <a href="{{ link["url"] }}" target="new">
+                                                {{ link["description"] }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="list_group">
+                {% if "programing_languages" in knowledge_base %}
+                    <div id="programing_languages" class="info_block">
+                        <h1>Programing Languages</h1>
+                        <ul class="info_body">
+                            {% for language in knowledge_base["programing_languages"] %}
+                                <li>{{ language }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                {% if "markup_languages" in knowledge_base %}
+                    <div id="markup_languages" class="info_block">
+                        <h1>Markup Languages</h1>
+                        <ul class="info_body">
+                            {% for language in knowledge_base["markup_languages"] %}
+                                <li>{{ language }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                {% if "known_tools" in knowledge_base %}
+                    <div id="known_tools" class="info_block">
+                        <h1>Technologies</h1>
+                        <ul class="info_body">
+                            {% for tool in knowledge_base["known_tools"] %}
+                                <li>{{ tool }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div id="footer">
+            {% if "meta_text" in document_formatting %}
+                {{ document_formatting["meta_text"] }}
+            {% endif %}
+        </div>
+    </body>
+</html>

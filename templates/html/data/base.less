@@ -1,0 +1,108 @@
+@import "elements.less";
+
+/* This file handles general page stuff, such as the body tag and the h1, h2,
+ * h3, etc tags.
+ */
+
+@font-face {
+    font-family: "Average";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Average"), local("Average-Regular"), url("average.woff")
+         format("woff");
+}
+
+.header-font {
+    font-family: "Average", Georgia, serif, "Times New Roman", Times;
+}
+
+.body-font {
+    font-family: Georgia, serif, "Times New Roman", Times;
+}
+
+.content {
+    /* A mix-in that manages padding for content areas that would normally
+     * extend from the absolute left to the absolute right of the page. This way
+     * text doesn't run right into the end of the page. Top and bottom padding
+     * _is_not_ managed by this, as they tend to be variable based on content
+     * type.
+     */
+    padding-left: @small-margin;
+    padding-right: @small-margin;
+}
+
+/* The document is divided up into at least 2 sections:
+ * - #body: Contains the information on the page that we actually care about
+ * - #footer: Very short, contains stuff like copyright info
+ * The header.less file adds a #header section. These sections are typically
+ * represented by divs.
+ */
+#body {
+    .content;
+}
+
+#footer {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    .content;
+    
+    color: @footer-color;
+    font-size: 70%;
+    font-style: italic;
+    text-align: right;
+}
+
+body {
+    @foreground-color: @body-foreground-color;
+    @background-color: @body-background-color;
+    
+    color: @foreground-color;
+    font-size: 14px;
+    .body-font;
+    margin: 0;
+    padding: 0;
+    background-color: @light-grey;
+    .linear-gradient(@background-color, darken(@background-color, 10%));
+    font-weight: light;
+    height: 100%;
+    
+    h1, h2, h3, h4, h5, h6 {
+        @color: @body-header-color;
+        color: @color;
+        font-weight: normal;
+        margin-top: 0;
+        margin-bottom: .1em;
+        .text-emboss(@color);
+        .header-font;
+    }
+    
+    h1 {
+        font-size: 240%;
+    }
+    
+    h2 {
+        font-size: 150%;
+    }
+    
+    h3 {
+        font-size: 130%;
+        font-style: italic;
+    }
+    
+    p {
+        margin-top: 0;
+        margin-bottom: .7em;
+        text-align: justify; /* Justified text blocks are sexy. */
+    }
+    
+    li {
+        list-style: disc;
+    }
+    
+    a {
+        color: @foreground-color;
+        font-style: italic;
+        target-name: new;
+        target-new: tab;
+    }
+}

@@ -1,0 +1,5 @@
+---
+use_templates:
+    - resume.tex
+copy_data:
+    - elements.sty

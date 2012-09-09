@@ -1,0 +1,124 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Set the page margins
+\usepackage[top=1.3cm, bottom=1.3cm, left=1.5cm, right=1.5cm]{geometry}
+
+\usepackage[utf8]{inputenc} % use UTF-8
+\usepackage[colorlinks=false, allbordercolors={0 0 0},%
+            pdfborderstyle={/S/U/W 1}]{hyperref} % links and stuff
+\usepackage{multicol}
+\usepackage{mdwlist}
+\usepackage{elements}
+\usepackage{microtype} % makes small typographic improvements
+
+% remove page numbers from the document
+\pagestyle{empty}
+
+% making paragraphs invisible makes templating whitespace management easier
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+% increase separation between columns
+\setlength{\columnsep}{20pt}
+
+\begin{document}
+    \titlebox{<< document_formatting["title"] >>}{<< person_info["name"] >>}
+    
+    % make the contact fields convenient for us
+    <| set contact_fields = ["email", "phone_number"] |>
+    <| set contacts = [] |>
+    <| for cf in contact_fields |>
+        <| if cf in person_info["contact"] |>
+            <| do contacts.append(person_info["contact"][cf]) |>
+        <| endif |>
+    <| endfor |>
+    
+    % figure out what goes in the \subtitlebox
+    <| set secondary_bar = [] |>
+    <| if "subtitle" in document_formatting |>
+        <| do secondary_bar.append(document_formatting["subtitle"]) |>
+    <| endif |>
+    <| if "titles" in person_info |>
+        <| do secondary_bar.append(" --- ".join(person_info["titles"])) |>
+    <| endif |>
+    <| if secondary_bar |>
+        %\vspace{-0.1pt}
+        % as long as we have some information we should put in a \subtitlebox
+        % we'll go ahead and make it. It we don't, then just don't put one
+        <| set secondary_bar_len = secondary_bar|length |>
+        <| if secondary_bar_len == 1 |>
+            <| do secondary_bar.append(contacts[0]) |>
+            <| set contacts = contacts[1:] |>
+        <| endif |>
+        \subtitlebox{<< secondary_bar[0] >>}{<< secondary_bar[1] >>}
+    <| endif |>
+    <| if contacts |>
+        %\vspace{-2pt}
+        \contactbox{<< contacts|join(" --- ") >>}
+    <| endif |>
+    
+    % fill in "about me"
+    <| if "about" in person_info |>
+        \section{About Me}
+        << person_info["about"] >>
+        \vfill
+    <| endif |>
+    
+    % fill in experiences
+    <| if experiences is defined |>
+        \begin{multicols}{2}[\section{Projects}]
+            \raggedcolumns
+            <| for experience in experiences |> %
+                \subsection{
+                    << experience["title"] >> %
+                    <| if "timeframe" in experience |>%
+                        \textit{(<< experience["timeframe"] >>)}%
+                    <| elif "start_time" in experience or
+                            "end_time" in experience |>%
+                        \textit{(%
+                            << experience["start_time"] >>--%
+                            << experience["end_time"] >>%
+                        )}%
+                    <| endif |>%
+                }
+                {
+                    \setlength{\parindent}{10pt}%
+                    << experience["description"] >>%
+                }
+            <| endfor |>
+        \end{multicols}
+        \vfill
+    <| endif |>
+    
+    % Fill in the groups of lists
+    <| set list_group_names = [("programing_languages", "Coding Languages"),
+                               ("markup_languages", "Markup Languages"),
+                               ("known_tools", "Technologies")] |>
+    <| set list_groups = [] |>
+    <| for names in list_group_names |>
+        <| if names[0] in knowledge_base |>
+            <| do list_groups.append((names[1], knowledge_base[names[0]])) |>
+        <| endif |>
+    <| endfor |>
+    <| set list_groups_len = list_groups|length |>
+    <| if list_groups_len > 1 |>
+        \begin{multicols}{<< list_groups_len >>}
+        \raggedcolumns
+    <| endif |>
+    <| for list_group in list_groups |>
+        \section{<< list_group[0] >>}
+        \parbox{\columnwidth}{
+            \begin{itemize*}
+                <| for item in list_group[1] |>
+                    \item[-] << item|replace("#", "\#") >>
+                <| endfor |>
+            \end{itemize*}\vfill
+        }\columnbreak
+    <| endfor |>
+    <| if list_groups_len > 1 |>
+        \end{multicols}
+    <| endif |>
+    <| if list_groups |>\vfill<| endif |>
+    
+    \simpleendnote{<< document_formatting["meta_text"].strip() >>}
+\end{document}
