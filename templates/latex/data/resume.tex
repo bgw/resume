@@ -1,15 +1,16 @@
 \documentclass[10pt, letterpaper]{article}
 
 % Set the page margins
-\usepackage[top=1.3cm, bottom=1.3cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 
 \usepackage[utf8]{inputenc} % use UTF-8
 \usepackage[colorlinks=false, allbordercolors={0 0 0},%
             pdfborderstyle={/S/U/W 1}]{hyperref} % links and stuff
 \usepackage{multicol}
-\usepackage{mdwlist}
 \usepackage{elements}
 \usepackage{microtype} % makes small typographic improvements
+\usepackage{enumitem}
+\setlist{noitemsep, topsep=0pt}
 
 % remove page numbers from the document
 \pagestyle{empty}
@@ -19,7 +20,7 @@
 \setlength{\parskip}{0pt}
 
 % increase separation between columns
-\setlength{\columnsep}{20pt}
+\setlength{\columnsep}{13pt}
 
 \begin{document}
     \titlebox{<< document_formatting["title"] >>}{<< person_info["name"] >>}
@@ -64,29 +65,47 @@
         \vfill
     <| endif |>
     
+    % fill in "about me"
+    <| if "education" in person_info |>
+        \section{Education}
+        << person_info["education"] >>
+        \vfill
+    <| endif |>
+    
     % fill in experiences
     <| if experiences is defined |>
-        \begin{multicols}{2}[\section{Projects}]
-            \raggedcolumns
-            <| for experience in experiences |> %
-                \subsection{
-                    << experience["title"] >> %
-                    <| if "timeframe" in experience |>%
-                        \textit{(<< experience["timeframe"] >>)}%
-                    <| elif "start_time" in experience or
-                            "end_time" in experience |>%
-                        \textit{(%
-                            << experience["start_time"] >>--%
-                            << experience["end_time"] >>%
-                        )}%
-                    <| endif |>%
+        \section{Projects}
+        <| for experience in experiences |> %
+            \projectsubsection{%
+                << experience["title"] >>%
+            }{%
+                <| if "timeframe" in experience |>%
+                    \hfill\textit{<< experience["timeframe"] >>}%
+                <| elif "start_time" in experience or
+                        "end_time" in experience |>%
+                    \hfill\textit{%
+                        << experience["start_time"] >>--%
+                        << experience["end_time"] >>%
+                    }%
+                <| endif |>%
+            }
+            % Fill in the body
+            {
+                % here's a massive hack to make itemize multicolumned
+                \let\olditb\itemize
+                \let\oldite\enditemize
+                \renewenvironment{itemize}{%
+                    \begin{multicols}{2}%
+                    \begingroup \olditb%
+                }{%
+                    \oldite \endgroup%
+                    \end{multicols}%
                 }
-                {
-                    \setlength{\parindent}{10pt}%
-                    << experience["description"] >>%
-                }
-            <| endfor |>
-        \end{multicols}
+                \setlength{\multicolsep}{1pt}%
+                \setlength{\parskip}{1pt}%
+                << experience["description"] >>%
+            }
+        <| endfor |>
         \vfill
     <| endif |>
     
@@ -108,17 +127,18 @@
     <| for list_group in list_groups |>
         \section{<< list_group[0] >>}
         \parbox{\columnwidth}{
-            \begin{itemize*}
+            \begin{itemize}
                 <| for item in list_group[1] |>
                     \item[-] << item|replace("#", "\#") >>
                 <| endfor |>
-            \end{itemize*}\vfill
+            \end{itemize}\vfill
         }\columnbreak
     <| endfor |>
     <| if list_groups_len > 1 |>
         \end{multicols}
     <| endif |>
     <| if list_groups |>\vfill<| endif |>
+    \vfill\vfill\vfill
     
     \simpleendnote{<< document_formatting["meta_text"].strip() >>}
 \end{document}

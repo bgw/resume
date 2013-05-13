@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from copy import deepcopy
 import os
 import os.path
@@ -19,7 +17,6 @@ def _rest_preprocess_core(string, writer_name):
     body = parts["body"]
     if "tex" in writer_name.lower():
         # horrible, horrible, fragile hacks:
-        body = body.replace("{itemize}", "{itemize*}")
         body = body.replace("\item", "\item[-]")
     return body.strip()
 

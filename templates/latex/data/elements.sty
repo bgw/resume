@@ -39,12 +39,23 @@
     }%
 }
 
+\newcommand{\projectsubsection}[2]{%
+    \subsection{%
+        #1%
+        \ifx\\#2\\
+            % Don't do anything, argument is empty
+        \else
+            \hfill\textit{#2}
+        \fi
+    }
+}
+
 \newcommand{\simpleendnote}[1]{%
     \vfill%
     \begin{small}
         \begin{flushright}%
             \textit{%
-                \textcolor{black!75}{%
+                \textcolor{black!50}{%
                     #1%
                 }%
             }%
