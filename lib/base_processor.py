@@ -12,8 +12,7 @@ except NameError: # py3k
 
 @lru_cache(maxsize=1000)
 def _rest_preprocess_core(string, writer_name):
-    parts = docutils.core.publish_parts(string.replace("\n", "\n\n"),
-                                        writer_name=writer_name)
+    parts = docutils.core.publish_parts(string, writer_name=writer_name)
     body = parts["body"]
     if "tex" in writer_name.lower():
         # horrible, horrible, fragile hacks:
