@@ -1,0 +1,50 @@
+@import "compass/css3/columns";
+@import "compass/css3/images";
+@import "compass/css3/text-shadow";
+@import "constants";
+
+// This file contains mixins for very, very common element styles. Some things
+// declared in here exists in order to provide a way of doing something without
+// having to directly deal with vendor prefixes.
+
+// Use gradients to make it look like an element above us is casting a shadow
+// down onto us.
+@mixin shadow-gradient($foreground-color, $shadow-color, $shadow-size,
+                       $bottom) {
+    @if $bottom {
+        @include background-image(linear-gradient(
+            top, $shadow-color 0%, $foreground-color $shadow-size,
+            $foreground-color 100% - $shadow-size, $shadow-color 100%
+        ));
+    } @else {
+        @include background-image(linear-gradient(
+            top, $shadow-color 0%, $foreground-color $shadow-size,
+            $shadow-color 100%
+        ));
+    }
+}
+
+// An element that shouldn't be broken up by a multi-column layout mid-way
+%column-break-protected {
+    // Some browser implementations use this... (provided by compass)
+    @include column-break-inside(avoid);
+    // Most browsers ignore the break-inside property, bu this seems to work
+    // instead.
+    display: inline-block;
+}
+
+// Give text the effect of being inset into the page
+@mixin text-emboss($text-color) {
+    @if lightness($text-color) >= 50% {
+        text-shadow: black 0px -.75px 0px, black 0px -1.5px 0px,
+                     rgba(255, 255, 255, .3) 0px -1.5px 5px;
+    } @else {
+        text-shadow: white 0px .75px 0px, white 0px 1.5px 0px,
+                     rgba(0, 0, 0, .3) 0px 1.5px 5px;
+    }
+}
+
+// Disable inheritance of text-emboss
+%no-text-emboss {
+    text-shadow: none;
+}

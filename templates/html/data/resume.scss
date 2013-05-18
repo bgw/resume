@@ -1,0 +1,65 @@
+@import "compass/css3/columns";
+@import "base";
+@import "elements";
+@import "header";
+
+// This file handles resume-specific blocks, doing things like putting multiple
+// columns under certain headings where there's probably a lot of information.
+
+#experiences {
+    // This represents the main part of the resume: things that we've done:
+    // Previous jobs, open source projects, etc.
+    .dates {
+        // When the experience took place, usually something like "(2009-2010)"
+        font-style: italic;
+    }
+
+    .info_body {
+        // The brief description of the experience
+        @include columns(auto 2);
+        @include column-gap($column-gap);
+
+        .links {
+            // Useful links to webpages where the reader can learn more about
+            // what was involved.
+            @include columns(auto 2);
+            @include column-gap($column-gap);
+            margin-top: 2px;
+        }
+    }
+
+    .info_item {
+        margin-bottom: 20px;
+        padding-left: 10px;
+        h2 {
+            margin-left: -10px;
+        }
+    }
+}
+
+.info_item {
+    @extend %column-break-protected;
+}
+
+.list_group {
+    // A list_group is a grouping of short lists, each with their own heading.
+    // This can be used for lists of stuff like programing languages,
+    // technologies, or other things.
+    @include columns(auto 3);
+    @include column-gap($column-gap);
+
+    ul {
+        text-align: left;
+    }
+
+    .info_block {
+        @extend %column-break-protected;
+    }
+}
+
+.info_block {
+    // As a general design principle, each block handles the spacing below it,
+    // and so any spacing needed above it is handled by the previous block.
+    margin-top: 0px;
+    margin-bottom: $small-margin;
+}

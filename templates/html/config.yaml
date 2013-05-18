@@ -5,5 +5,5 @@ copy_data:
     - average.woff
     - average_OFL.txt
     - favicon.ico
-less_files:
-    - resume.less
+sass_files:
+    - resume.scss
