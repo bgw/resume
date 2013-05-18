@@ -15,7 +15,6 @@ Features
 To-Do
 -----
 
--   Port the CSS to SASS from LESS
 -   Port build system from ReST to [Pandoc][], and allow the user to specify any
     input format they want
 -   General code cleanup
