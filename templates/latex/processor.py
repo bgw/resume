@@ -16,3 +16,10 @@ def process(config, template_path, output_path, data):
     for template in config["use_templates"]:
         with open(os.path.join(output_path, template), "w") as f:
             f.write(environment.get_template(template).render(data))
+
+    subprocess.check_call(
+        [
+            "latexmk", "-pdf", "-quiet", config["main_texfile"]
+        ],
+        cwd=output_path
+    )

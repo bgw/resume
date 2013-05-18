@@ -3,3 +3,4 @@ use_templates:
     - resume.tex
 copy_data:
     - elements.sty
+main_texfile: resume.tex
