@@ -1,0 +1,8 @@
+---
+use_templates:
+    - index.html
+copy_data:
+    - fonts
+    - favicon.ico
+sass_files:
+    - resume.scss

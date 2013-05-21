@@ -52,5 +52,13 @@ def process(config, template_path, output_path, data):
         pass
     
     for f in config["copy_data"]:
-        shutil.copyfile(os.path.join(template_path, "data", f),
-                        os.path.join(output_path, f))
+        src = os.path.join(template_path, "data", f)
+        dst = os.path.join(output_path, f)
+        if os.path.isdir(src):
+            try:
+                shutil.rmtree(dst)
+            except:
+                pass
+            shutil.copytree(src, dst)
+        else:
+            shutil.copyfile(src, dst)

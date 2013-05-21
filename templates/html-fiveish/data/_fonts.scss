@@ -1,0 +1,68 @@
+@import "compass/css3/font-face";
+
+// Variables for lists of fallback fonts associated with each of our webfonts
+$lato-family: Lato, Helvetica, Trebuchet, Verdana, Arial, sans-serif;
+$open-sans-family: "Open Sans", Helvetica, Verdana, Arial, sans-serif;
+
+// Font-face imports are kept to a minimum. If we decide later that we want some
+// other varient of a font, we can always add it then.
+
+@include font-face(
+    "Lato",
+    font-files("lato/Lato-Bol-webfont.woff",
+               "lato/Lato-Bol-webfont.ttf",
+               "lato/Lato-Bol-webfont.svg"),
+    "lato/Lato-Bol-webfont.eot",
+    700, // bold
+    normal
+);
+
+@include font-face(
+    "Lato",
+    font-files("lato/Lato-BolIta-webfont.woff",
+               "lato/Lato-BolIta-webfont.ttf",
+               "lato/Lato-BolIta-webfont.svg"),
+    "lato/Lato-BolIta-webfont.eot",
+    700, // bold
+    italic
+);
+
+@include font-face(
+    "Open Sans",
+    font-files("opensans/OpenSans-Regular-webfont.woff",
+               "opensans/OpenSans-Regular-webfont.ttf",
+               "opensans/OpenSans-Regular-webfont.svg"),
+    "opensans/OpenSans-Regular-webfont.eot",
+    400, // normal
+    normal
+);
+
+@include font-face(
+    "Open Sans",
+    font-files("opensans/OpenSans-Bold-webfont.woff",
+               "opensans/OpenSans-Bold-webfont.ttf",
+               "opensans/OpenSans-Bold-webfont.svg"),
+    "opensans/OpenSans-Bold-webfont.eot",
+    700, // bold
+    normal
+);
+
+@include font-face(
+    "Open Sans",
+    font-files("opensans/OpenSans-Italic-webfont.woff",
+               "opensans/OpenSans-Italic-webfont.ttf",
+               "opensans/OpenSans-Italic-webfont.svg"),
+    "opensans/OpenSans-Italic-webfont.eot",
+    400, // normal
+    italic
+);
+
+@include font-face(
+    "Open Sans",
+    font-files("opensans/OpenSans-BoldItalic-webfont.woff",
+               "opensans/OpenSans-BoldItalic-webfont.ttf",
+               "opensans/OpenSans-BoldItalic-webfont.svg"),
+    "opensans/OpenSans-BoldItalic-webfont.eot",
+    700, // bold
+    italic
+);
