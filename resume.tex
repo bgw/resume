@@ -1,0 +1,213 @@
+\documentclass[11pt, letterpaper]{article}
+
+% Set the page margins
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+\usepackage[utf8]{inputenc} % use UTF-8
+\usepackage[colorlinks=false, allbordercolors={0 0 0},%
+            pdfborderstyle={/S/U/W 1}]{hyperref} % links and stuff
+\usepackage{multicol}
+\usepackage{elements}
+\usepackage{microtype}
+\usepackage{enumitem}
+
+% Fix sections
+\usepackage[compact]{titlesec}
+\renewcommand{\thesection}{}
+\renewcommand{\thesubsection}{}
+\titleformat{\section}[hang]%
+    {\normalfont\bfseries\Large}{\vspace{3pt}}{-1pt}{\vspace{-3pt}}
+\titleformat{\subsection}[hang]%
+    {\normalfont\bfseries\large}{\vspace{3pt}}{-1pt}{\vspace{-5pt}}
+
+% Format lists
+\setlist{noitemsep, topsep=0pt}
+\def\labelitemi{-}
+
+% remove page numbers from the document
+\pagestyle{empty}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\columnsep}{20pt}
+
+% Fix compilation bug with certain LaTeX versions
+\usepackage{csquotes}
+\MakeOuterQuote{"}
+\let\textquotedbl="
+
+\begin{document}
+
+\input{header.tex}
+
+%% EDUCATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Education}
+
+\begin{multicols}{2}
+\raggedcolumns
+\textbf{Masters of Science, Computer Engineering} \\
+\textit{At the University of Florida} \\
+Currently enrolled in my first semester \\
+Should graduate December 2015
+
+\columnbreak
+
+\textbf{Bachelors of Science, Computer Engineering} \\
+\textit{At the University of Florida} \\
+Graduated December 2014, with a 3.42 GPA
+\end{multicols}
+
+%% EMPLOYMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Employment}
+
+\begin{multicols}{2}
+\raggedcolumns
+\textbf{Facebook Internship, \textit{Summer 2015}} \\
+I have received and accepted an offer to work as a Front End Engineer Intern
+at Facebook.
+
+\columnbreak
+
+\textbf{Amazon Internship, \textit{Summer 2014}} \\
+I recently completed an internship with Amazon’s Fulfillment team in Seattle.
+I declined a return offer in favor of Facebook.
+\end{multicols}
+
+\vfill
+
+%% PROJECTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Current Projects}
+
+\datedsubsection{Honeybadger}{Spring 2015}
+
+An extremely easy-to-use tool for configuring and running tor relays and full
+bitcoind nodes. It uses a long list of technologies to automate installation,
+upgrades, and error recovery, as well as to provide metrics.
+
+The goal of the project is to assist these decentralized and trustless networks,
+by encouraging people to run them on cheap and potentially unreliable hardware
+or virtual machines.
+
+\datedsubsection{Empress}{Fall 2015}
+
+A lightweight email-focused fork of the popular configuration tool "Sovereign"
+that makes it simple and inexpensive to run your own secure email server, and to
+migrate from an existing IMAP server.
+
+\vfill
+
+\section{Past Projects}
+
+\datedsubsection{IPOP (IP-over-P2P)}{Summer 2012}
+A P2P VPN working by forwarding raw packets from a TAP device over UDP via
+STUN and TURN using libjingle (part of WebRTC) and XMPP.
+
+\begin{itemize}
+    \item Raw packet networking with Linux
+    \item Multiple routing modes (using a social graph or a fixed group)
+    \item Cloud, mobile, and social applications
+\end{itemize}%
+
+\datedsubsection{iDigBio}{Summer 2012}
+
+I wrote packaging scripts for a Python-based user-friendly upload tool. Targets
+were:
+
+\begin{itemize}
+    \item Windows (via cx\_freeze)
+    \item Mac OS X (via py2app)
+    \item A Virtual Appliance (via VirtualBox and Puppet)
+\end{itemize}
+
+iDigBio is an NSF 10+ year project, so a strong emphasis was placed on
+maintainability.
+
+\pagebreak
+
+\datedsubsection{NotVeryCleverBot}{Spring 2013}
+
+A highly experimental AI commenting robot for the Reddit social network.
+
+\begin{itemize}
+    \item 26 stars and 6 forks on Github.
+    \item Over 6,000 comment “karma” points on Reddit.
+\end{itemize}
+
+The bot was written quickly as a prototype in MongoDB, and has since been
+partially re-written in CoffeeScript with MySQL.
+
+\datedsubsection{Century}{Fall 2011 and Spring 2012}
+
+I personally and independently developed library to automate various
+web-resources operated by the University of Florida via screen-scraping.
+
+\begin{itemize}
+    \item Medium-to-large library, containing more than 10k LOC.
+    \item Uses LXML to parse page content.
+    \item Designed to be fault-tolerant.
+\end{itemize}
+
+\datedsubsection{Prelude.mk}{Fall 2013}
+
+A fun proof-of-concept port of some of the more interesting bits of Haskell’s
+prelude.hs to GNU make without shelling out or using guile. GNU make is a
+Turing-complete functional language, but lacks many simple features, such basic
+arithmetic.
+
+\vfill\vfill\vfill\vfill
+
+%% TECHNOLOGIES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\columnsep}{13pt}
+\begin{multicols}{3}
+\raggedcolumns
+
+\newenvironment{technologylist}[1]{%
+    \section{#1}
+    \begin{minipage}{\columnwidth}
+        \begin{small}
+            \begin{itemize}%
+}{%
+            \end{itemize}
+        \end{small}
+    \end{minipage}
+    \columnbreak%
+}
+
+\begin{technologylist}{Coding Languages}
+    \item Python
+    \item Coffeescript \& Javascript
+    \item Java
+    \item C and C++
+    \item Haskell
+    \item POSIX Shell
+\end{technologylist}
+\begin{technologylist}{Markup Languages}
+    \item \LaTeX
+    \item Markdown
+    \item HTML5
+    \item HAML
+    \item CSS, SASS, \& LESS
+    \item JSON \& YAML
+\end{technologylist}
+\begin{technologylist}{Technologies}
+\item Debian GNU/Linux
+\item Bash, Zsh, \& POSIX Shell
+\item Vim
+\item Git DVCS
+\item Nginx
+\item Postfix \& Dovecot
+\item Ansible, Salt, \& Vagrant
+\end{technologylist}
+
+\end{multicols}
+
+%% ENDNOTE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\simpleendnote{
+    More projects, links, and fun facts at \url{http://benjam.info/}.
+}
+\end{document}

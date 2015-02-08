@@ -1,0 +1,65 @@
+\usepackage{xcolor}
+
+\newcommand{\titlebox}[2]{%
+    \parbox{\linewidth}{%
+        \textcolor{black!100}{%
+            \begin{Huge}%
+                \textsc{#1}%
+            \end{Huge}%
+            \hfill%
+            \begin{LARGE}%
+                \textsc{#2}%
+            \end{LARGE}%
+        }%
+    }%
+}
+
+\newcommand{\subtitlebox}[2]{%
+    \parbox{\linewidth}{%
+        \textcolor{black!75}{%
+            \begin{Large}%
+                \textsc{#1}%
+            \end{Large}%
+            \hfill%
+            \begin{Large}%
+                \textsc{#2}%
+            \end{Large}%
+        }%
+    }%
+}
+
+\newcommand{\contactbox}[1]{%
+    \parbox{\linewidth}{%
+        \textcolor{black!50}{%
+            \hfill%
+            \begin{large}%
+                \textsc{#1}%
+            \end{large}%
+        }%
+    }%
+}
+
+\newcommand{\datedsubsection}[2]{%
+    \phantomsection%
+    \addcontentsline{toc}{subsection}{#1}%
+    \subsection*{%
+        #1%
+        \ifx\\#2\\
+            % Don't do anything, argument is empty
+        \else
+            \hfill\textit{#2}
+        \fi
+    }%
+}
+
+\newcommand{\simpleendnote}[1]{%
+    \begin{footnotesize}
+        \begin{flushright}%
+            \textit{%
+                \textcolor{black!75}{%
+                    #1%
+                }%
+            }%
+        \end{flushright}%
+    \end{footnotesize}%
+}

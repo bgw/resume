@@ -1,0 +1,5 @@
+% This is in a separate file, as it may contain my phone number and/or address,
+% which isn't intended for public distribution.
+\titlebox{Résumé}{Benjamin Woodruff}
+\subtitlebox{Spring 2015}{Software Developer --- Student}
+\contactbox{resume@benjam.info}%
