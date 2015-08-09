@@ -2,8 +2,8 @@
 
 all: resume.pdf
 
-%.pdf: %.tex
+%.pdf: %.tex header.tex
 	latexmk --pdf $<
 
 clean:
-	rm -f *.aux *.fdb_latexmk *.log *.out *.pdf
+	rm -f *.aux *.fdb_latexmk *.log *.out *.fls *.pdf

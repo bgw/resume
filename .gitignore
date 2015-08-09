@@ -2,5 +2,6 @@
 *.fdb_latexmk
 *.log
 *.out
+*.fls
 *.pdf
 header.tex
